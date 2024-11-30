@@ -1,3 +1,27 @@
+Installations:
+1. React
+2. Node.js
+3. Express.js
+4. Mongoose
+5. dotenv
+6. bcrypt
+7. jsonwebtoken
+8. cors
+9. body-parser
+10. react-router-dom
+11. axios
+12. redux
+
+# Install Backend Dependencies:
+    cd jail-management-system
+    cd backend
+    npm install
+
+# Install Frontend Dependencies:
+    cd jail-management-system
+    cd frontend/my-app
+    npm install
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
