@@ -6,12 +6,13 @@ const VisitationHistory = ({ visitorId }) => {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const visitorData = JSON.parse(localStorage.getItem('visitorData'));
 
   useEffect(() => {
     const fetchHistory = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/visitation-request/history/${visitorId}`
+          `http://localhost:5000/api/visitation-request/history/visitorData.cnic`
         );
         setHistory(response.data);
         setLoading(false);

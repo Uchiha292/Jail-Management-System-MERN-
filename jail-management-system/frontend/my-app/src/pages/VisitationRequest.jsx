@@ -1,49 +1,62 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/VisitationRequest.css'
+import axios from 'axios';
 import BackButton from '../components/BackButton';
 
 function VisitationRequest() {
-    const [visitorId, setVisitorId] = useState('');
     const [prisonerId, setPrisonerId] = useState('');
     const [visitDate, setVisitDate] = useState('');
-    const [visitors, setVisitors] = useState([]);
     const [prisoners, setPrisoners] = useState([]);
     const [message, setMessage] = useState('');
 
-    // Fetch visitors and prisoners data from the backend
-    useEffect(() => {
-        const fetchData = async () => {
-            const visitorsRes = await fetch('/api/visitors');
-            const prisonersRes = await fetch('/api/prisoners');
-            const visitorsData = await visitorsRes.json();
-            const prisonersData = await prisonersRes.json();
-            setVisitors(visitorsData);
-            setPrisoners(prisonersData);
-        };
-        fetchData();
-    }, []);
+    // Get visitor data from localStorage (assuming the visitor is logged in)
+    const visitorData = JSON.parse(localStorage.getItem('visitorData'));
 
+    useEffect(() => {
+        const fetchPrisoners = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/api/prisoners');
+                setPrisoners(response.data);
+            } catch (error) {
+                console.error('Error fetching prisoners:', error);
+            }
+        };
+
+        fetchPrisoners();
+    }, []);
     const handleSubmit = async (e) => {
         e.preventDefault();
+    
+        // Check if the visitor is logged in
+        if (!visitorData) {
+            setMessage({ text: 'You must be logged in to make a visitation request.', type: 'error' });
+            return;
+        }
+    
+        // Log visitorData to check its contents
+        console.log('Visitor Data:', visitorData);
+    
+        // Log the data being posted
+        const postData = {
+            visitorCnic: visitorData.cnic, // Use the logged-in visitor's CNIC
+            prisonerId,
+            visitDate
+        };
+        console.log('Data being posted:', postData); // Log the data to console
+    
         try {
-            const response = await fetch('/api/visitation-request/request', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ visitorId, prisonerId, visitDate }),
-            });
-            const data = await response.json();
+            // Send the visitation request to the backend
+            const response = await axios.post('http://localhost:5000/api/visitation-request/request', postData);
+    
             if (response.status === 201) {
                 setMessage({ text: 'Visitation request submitted successfully!', type: 'success' });
             } else {
-                setMessage({ text: 'Error: ' + data.message, type: 'error' });
+                setMessage({ text: 'Error: ' + response.data.message, type: 'error' });
             }
         } catch (error) {
             setMessage({ text: 'Error: ' + error.message, type: 'error' });
         }
     };
-
+    
     return (
         <div className="visitation-request">
             <BackButton />
@@ -51,14 +64,7 @@ function VisitationRequest() {
             <form onSubmit={handleSubmit} className="form">
                 <label>
                     Visitor:
-                    <select value={visitorId} onChange={(e) => setVisitorId(e.target.value)} required>
-                        <option value="">Select Visitor</option>
-                        {visitors.map((visitor) => (
-                            <option key={visitor._id} value={visitor._id}>
-                                {visitor.name}
-                            </option>
-                        ))}
-                    </select>
+                    <input type="text" value={visitorData?.name} readOnly />
                 </label>
                 <label>
                     Prisoner:

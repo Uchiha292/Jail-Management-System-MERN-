@@ -1,31 +1,39 @@
-const express = require("express");
 const mongoose = require("mongoose");
-const VisitationRequest = require("../models/VisitationRequest"); // Import VisitationRequest model
+const VisitationRequest = require("../models/VisitationRequest"); // Adjust the import as necessary
+const Visitor = require("../models/Visitor"); // Assuming you have a Visitor model
+const Prisoner = require("../models/Prisoner"); // Assuming you have a Prisoner model
+const express = require('express');
 
-const router = express.Router();
-
-// Function to check if a string is a valid ObjectId
-const isValidObjectId = (id) => mongoose.Types.ObjectId.isValid(id);
-
+const router = express.Router();  // This initializes the router
 // POST request to create a visitation request
 router.post("/request", async (req, res) => {
-  const { visitorId, prisonerId, visitDate } = req.body;
+  const { visitorCnic, prisonerId, visitDate } = req.body;
 
-  if (!isValidObjectId(visitorId) || !isValidObjectId(prisonerId)) {
-    return res.status(400).json({
-      message:
-        "Invalid visitorId or prisonerId format. Must be a valid ObjectId.",
-    });
+  if (!visitorCnic || !prisonerId || !visitDate) {
+    return res.status(400).json({ message: "Missing required fields." });
   }
 
   try {
-    // Use valid ObjectId
-    const visitorObjectId = new mongoose.Types.ObjectId(visitorId);
-    const prisonerObjectId = new mongoose.Types.ObjectId(prisonerId);
+    // Check if the visitor with the given CNIC exists
+    const visitor = await Visitor.findOne({ cnic: visitorCnic });
+    if (!visitor) {
+      return res
+        .status(404)
+        .json({ message: "Visitor not found with the provided CNIC." });
+    }
 
+    // Check if the prisoner exists
+    const prisoner = await Prisoner.findById(prisonerId);
+    if (!prisoner) {
+      return res
+        .status(404)
+        .json({ message: "Prisoner not found with the provided ID." });
+    }
+
+    // Create the visitation request
     const newRequest = new VisitationRequest({
-      visitorId: visitorObjectId,
-      prisonerId: prisonerObjectId,
+      visitorId: visitor._id, // Use the visitor's ObjectId, not CNIC
+      prisonerId,
       visitDate,
       status: "Pending", // Default status
     });
@@ -37,6 +45,7 @@ router.post("/request", async (req, res) => {
       request: newRequest,
     });
   } catch (error) {
+    console.error("Error while creating visitation request:", error);
     res.status(500).json({
       message: "An error occurred while submitting the visitation request.",
       error: error.message,
@@ -137,18 +146,26 @@ router.delete("/requests/:id", async (req, res) => {
       .status(500)
       .json({ message: "An error occurred.", error: error.message });
   }
-});
-// GET request to fetch visitation history by visitor ID
-router.get("/history/:visitorId", async (req, res) => {
-  const { visitorId } = req.params;
+});// GET request to fetch visitation history by visitor CNIC
+router.get("/history/:visitorCnic", async (req, res) => {
+  const { visitorCnic } = req.params;
 
-  // Validate the visitor ID format
-  if (!isValidObjectId(visitorId)) {
-    return res.status(400).json({ message: "Invalid visitor ID format." });
+  // Validate the visitor CNIC format (you can add custom CNIC validation logic if needed)
+  if (!visitorCnic) {
+    return res.status(400).json({ message: "Visitor CNIC is required." });
   }
 
   try {
-    const visitationHistory = await VisitationRequest.find({ visitorId })
+    // Search for the visitor by their CNIC
+    const visitor = await Visitor.findOne({ cnic: visitorCnic }); // Assuming the collection is named 'Visitor'
+
+    // Check if the visitor exists
+    if (!visitor) {
+      return res.status(404).json({ message: "Visitor not found." });
+    }
+
+    // Fetch visitation history for the found visitor
+    const visitationHistory = await VisitationRequest.find({ visitorId: visitor._id })
       .populate("prisonerId", "name crime") // Populate prisoner details
       .sort({ visitDate: -1 }); // Sort by visit date in descending order
 
@@ -160,9 +177,8 @@ router.get("/history/:visitorId", async (req, res) => {
 
     res.status(200).json(visitationHistory);
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "An error occurred.", error: error.message });
+    res.status(500).json({ message: "An error occurred.", error: error.message });
   }
 });
+
 module.exports = router;

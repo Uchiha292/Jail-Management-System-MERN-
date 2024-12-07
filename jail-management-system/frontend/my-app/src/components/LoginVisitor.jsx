@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import BackButton from '../components/BackButton';
+import { useNavigate } from 'react-router-dom';
 
 const LoginVisitor = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ const LoginVisitor = () => {
 
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate(); // Initialize the navigate hook
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,11 +21,18 @@ const LoginVisitor = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/api/visitors/login', formData);
+      const visitorData = response.data.visitor; // Assuming the response contains the full visitor data
+      const token = response.data.token; // Assuming the response contains the token
+
       setSuccessMessage(response.data.message);
       setErrorMessage('');
-      localStorage.setItem('token', response.data.token); // Store the token in localStorage
+      localStorage.setItem('token', token); // Store the token in localStorage
+      localStorage.setItem('visitorData', JSON.stringify(visitorData)); // Store the full visitor data
+
+      // Redirect to the homepage after successful login
+      navigate('/home');
     } catch (error) {
-      setErrorMessage(error.response.data.message);
+      setErrorMessage(error.response?.data?.message || 'An error occurred');
       setSuccessMessage('');
     }
   };

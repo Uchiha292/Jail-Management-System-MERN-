@@ -10,11 +10,10 @@ const HomePage = () => {
         <p>Your one-stop solution for managing prison visits and guidelines.</p>
 
         <div className="navigation">
-          <Link className="btn" to="/register">Register as Visitor</Link>
-          <Link className="btn" to="/login">Login</Link>
           <Link className="btn" to="/visitation-request">Request a Visit</Link>
           <Link className="btn" to="/visitation-history">Visitation History</Link>
           <Link className="btn" to="/guidelines">Visitor Guidelines</Link>
+          <Link className="btn" to="/">Logout</Link>
         </div>
       </div>
     </div>

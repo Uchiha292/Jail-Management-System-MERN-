@@ -39,8 +39,15 @@ const RegisterVisitor = () => {
 
     try {
       const response = await axios.post('http://localhost:5000/api/visitors/register', formData);
+      const visitorData = response.data.visitor; // Assuming the response contains the full visitor data
+      const token = response.data.token; // Assuming the response contains the token
+
       setSuccessMessage(response.data.message);
       setErrorMessage('');
+
+      // Store the token and full visitor data in localStorage
+      localStorage.setItem('token', token);
+      localStorage.setItem('visitorData', JSON.stringify(visitorData));
 
       setFormData({
         name: '',
@@ -50,6 +57,9 @@ const RegisterVisitor = () => {
         confirmPassword: '',
         cnic: ''
       });
+
+      // Redirect to the homepage after successful registration
+      navigate('/home');
     } catch (error) {
       setErrorMessage(error.response ? error.response.data.message : 'An error occurred.');
       setSuccessMessage('');
@@ -59,7 +69,7 @@ const RegisterVisitor = () => {
   return (
     <GoogleOAuthProvider clientId="396729223726-co6nsgbplchnjg8efjf2cam969b4lq2k.apps.googleusercontent.com">
       <div className="register-container">
-      <BackButton />
+        <BackButton />
         <h2 className="register-title">Visitor Registration</h2>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
         {successMessage && <p className="success-message">{successMessage}</p>}
@@ -121,10 +131,25 @@ const RegisterVisitor = () => {
           <GoogleLogin
             onSuccess={(response) => {
               console.log('Google login successful:', response);
-              // Handle Google login here
+
+              // Assuming Google login response contains the visitor data
+              const visitorData = response.credential; // This may vary based on your setup
+              const token = response.token; // Get the token if available
+
+              // Store the Google login data in localStorage
+              localStorage.setItem('token', token);
+              localStorage.setItem('visitorData', JSON.stringify(visitorData));
+
+              setSuccessMessage('Google login successful!');
+              setErrorMessage('');
+
+              // Redirect to the homepage
+              navigate('/home');
             }}
             onError={(error) => {
               console.log('Google login error:', error);
+              setErrorMessage('Google login failed. Please try again.');
+              setSuccessMessage('');
             }}
             useOneTap
           />
