@@ -63,18 +63,17 @@ const registerVisitor = async (req, res) => {
   }
 };
 
-// Login visitor
 const loginVisitor = async (req, res) => {
-  const { cnic, password } = req.body;
+  const { email, password } = req.body;  // Accept email instead of cnic
 
   // Validate required fields
-  if (!cnic || !password) {
-    return res.status(400).json({ message: "CNIC and password are required" });
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required" });
   }
 
   try {
-    // Check if visitor exists using CNIC
-    const visitor = await Visitor.findOne({ cnic });
+    // Check if visitor exists using email instead of CNIC
+    const visitor = await Visitor.findOne({ email });  // Search by email
     if (!visitor) {
       return res.status(404).json({ message: "Visitor not found" });
     }
@@ -87,7 +86,7 @@ const loginVisitor = async (req, res) => {
 
     // Generate JWT token
     const token = jwt.sign(
-      { id: visitor._id, cnic: visitor.cnic },
+      { id: visitor._id, email: visitor.email },  // Include email in JWT payload
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
@@ -98,7 +97,7 @@ const loginVisitor = async (req, res) => {
       visitor: {
         id: visitor._id,
         name: visitor.name,
-        cnic: visitor.cnic,
+        email: visitor.email,  // Include email in response
         contact: visitor.contact,
       },
     });
@@ -106,5 +105,6 @@ const loginVisitor = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
 
 module.exports = { registerVisitor, loginVisitor };

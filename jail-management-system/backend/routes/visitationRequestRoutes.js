@@ -5,37 +5,35 @@ const Prisoner = require("../models/Prisoner"); // Assuming you have a Prisoner 
 const express = require('express');
 
 const router = express.Router();  // This initializes the router
-// POST request to create a visitation request
 router.post("/request", async (req, res) => {
-  const { visitorCnic, prisonerId, visitDate } = req.body;
+  const { visitorEmail, prisonerId, visitDate } = req.body;
 
-  if (!visitorCnic || !prisonerId || !visitDate) {
+  // Ensure all required fields are provided
+  if (!visitorEmail || !prisonerId || !visitDate) {
     return res.status(400).json({ message: "Missing required fields." });
   }
 
   try {
-    // Check if the visitor with the given CNIC exists
-    const visitor = await Visitor.findOne({ cnic: visitorCnic });
+    // Check if the visitor with the given email exists
+    const visitor = await Visitor.findOne({ email: visitorEmail });
     if (!visitor) {
       return res
         .status(404)
-        .json({ message: "Visitor not found with the provided CNIC." });
+        .json({ message: "Visitor not found with the provided email." });
     }
 
     // Check if the prisoner exists
     const prisoner = await Prisoner.findById(prisonerId);
     if (!prisoner) {
-      return res
-        .status(404)
-        .json({ message: "Prisoner not found with the provided ID." });
+      return res.status(404).json({ message: "Prisoner not found with the provided ID." });
     }
 
     // Create the visitation request
     const newRequest = new VisitationRequest({
-      visitorId: visitor._id, // Use the visitor's ObjectId, not CNIC
+      visitorId: visitor._id,  // Use the visitor's ObjectId, not email
       prisonerId,
       visitDate,
-      status: "Pending", // Default status
+      status: "Pending",  // Default status
     });
 
     await newRequest.save();
@@ -52,6 +50,7 @@ router.post("/request", async (req, res) => {
     });
   }
 });
+
 
 // GET request to fetch all visitation requests
 router.get("/requests", async (req, res) => {

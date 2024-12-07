@@ -1,61 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import BackButton from '../components/BackButton';
 import axios from 'axios';
 
-const VisitationHistory = ({ visitorId }) => {
+const VisitationHistory = () => {
   const [history, setHistory] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const visitorData = JSON.parse(localStorage.getItem('visitorData'));
+  const [errorMessage, setErrorMessage] = useState('');
+
+  // Retrieve visitorData from localStorage (or state)
+  const visitorData = JSON.parse(localStorage.getItem('visitorData')); 
 
   useEffect(() => {
-    const fetchHistory = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:5000/api/visitation-request/history/visitorData.cnic`
-        );
-        setHistory(response.data);
-        setLoading(false);
-      } catch (err) {
-        setError(err.response?.data?.message || 'An error occurred.');
-        setLoading(false);
-      }
-    };
-
-    fetchHistory();
-  }, [visitorId]);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+    if (visitorData && visitorData.cnic) {
+      const fetchHistory = async () => {
+        try {
+          // Use the actual CNIC value here
+          const response = await axios.get(`http://localhost:5000/api/visitation-request/history/${visitorData.cnic}`);
+          setHistory(response.data);
+        } catch (error) {
+          setErrorMessage('Failed to fetch visitation history');
+        }
+      };
+      
+      fetchHistory();
+    } else {
+      setErrorMessage('Visitor data is missing or not logged in');
+    }
+  }, [visitorData]);
 
   return (
     <div>
-      <BackButton />
       <h2>Visitation History</h2>
-      {history.length === 0 ? (
-        <p>No visitation history found.</p>
-      ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>Prisoner Name</th>
-              <th>Crime</th>
-              <th>Visit Date</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {history.map((record) => (
-              <tr key={record._id}>
-                <td>{record.prisonerId?.name || 'Unknown'}</td>
-                <td>{record.prisonerId?.crime || 'N/A'}</td>
-                <td>{new Date(record.visitDate).toLocaleDateString()}</td>
-                <td>{record.status}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      <ul>
+        {history.map((visit) => (
+          <li key={visit._id}>{visit.visitDate} - {visit.prisonerId.name}</li>
+        ))}
+      </ul>
     </div>
   );
 };

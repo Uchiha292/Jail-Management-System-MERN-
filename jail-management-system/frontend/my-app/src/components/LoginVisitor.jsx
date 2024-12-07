@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginVisitor = () => {
   const [formData, setFormData] = useState({
-    cnic: '',
+    email: '',  // Change cnic to email
     password: ''
   });
 
@@ -20,6 +20,7 @@ const LoginVisitor = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Send email and password instead of cnic
       const response = await axios.post('http://localhost:5000/api/visitors/login', formData);
       const visitorData = response.data.visitor; // Assuming the response contains the full visitor data
       const token = response.data.token; // Assuming the response contains the token
@@ -44,11 +45,12 @@ const LoginVisitor = () => {
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
       {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
       <form onSubmit={handleSubmit}>
+        {/* Change CNIC field to Email */}
         <input
-          type="text"
-          name="cnic"
-          placeholder="CNIC"
-          value={formData.cnic}
+          type="email"
+          name="email"  // Changed to email
+          placeholder="Email"
+          value={formData.email}  // Bound to email field
           onChange={handleChange}
         />
         <input

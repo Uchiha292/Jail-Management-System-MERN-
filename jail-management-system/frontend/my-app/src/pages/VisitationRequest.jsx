@@ -32,17 +32,17 @@ function VisitationRequest() {
             return;
         }
     
-        // Log visitorData to check its contents
-        console.log('Visitor Data:', visitorData);
+        // Log the visitorData to ensure it contains the email property
+        console.log('Visitor Data:', visitorData);  // Make sure this contains `email`
     
-        // Log the data being posted
         const postData = {
-            visitorCnic: visitorData.cnic, // Use the logged-in visitor's CNIC
+            visitorEmail: visitorData.email,  // Ensure visitorData contains email
             prisonerId,
             visitDate
         };
-        console.log('Data being posted:', postData); // Log the data to console
     
+        console.log('Data being posted:', postData);  // Log postData to ensure it's correct
+   
         try {
             // Send the visitation request to the backend
             const response = await axios.post('http://localhost:5000/api/visitation-request/request', postData);
@@ -53,9 +53,12 @@ function VisitationRequest() {
                 setMessage({ text: 'Error: ' + response.data.message, type: 'error' });
             }
         } catch (error) {
+            console.log('Error Response:', error.response?.data);  // Log error response
             setMessage({ text: 'Error: ' + error.message, type: 'error' });
         }
     };
+   
+    
     
     return (
         <div className="visitation-request">
