@@ -1,0 +1,41 @@
+.warden-home-page {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+
+/* Header with the blue background */
+.warden-header {
+  background-color: #007bff;  /* Blue header */
+  color: white;  /* Make sure the text is white */
+  padding: 10px;
+  text-align: center;
+}
+
+/* Navigation menu with center-aligned links */
+.warden-nav {
+  margin: 20px 0;
+  text-align: center; /* Center the links */
+}
+
+/* Style for navigation links */
+.nav-link {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;  /* Increase font size */
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+  color: #f1f1f1;  /* Lighter color on hover */
+}
+
+/* Main content area with white background */
+.warden-content {
+  padding: 20px;
+  background-color: white;  /* White background */
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}

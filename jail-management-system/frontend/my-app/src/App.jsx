@@ -6,6 +6,8 @@ import HomePage from './pages/HomePage'; // Assuming the HomePage is here
 import VisitationRequest from './pages/VisitationRequest';
 import VisitationHistory from './pages/VisitationHistory';
 import GuidelinesPage from './pages/Guidelines';
+import LoginWarden from './components/LoginWarden';
+import WardenHomePage from './pages/WardenHomePage';
 
 function App() {
     return (
@@ -18,6 +20,10 @@ function App() {
                 <Route path="/visitation-request" element={<VisitationRequest />} />
                 <Route path="/visitation-history" element={<VisitationHistory />} />
                 <Route path="/guidelines" element={<GuidelinesPage />} />
+
+                {/* Warden Panel Routes */}
+                <Route path="/warden/login" element={<LoginWarden />} />
+                <Route path="/warden/home" element={<WardenHomePage />} />
             </Routes>
         </Router>
     );
