@@ -27,6 +27,36 @@ const getIncidentFrequency = async (req, res) => {
   }
 };
 
+// Get Prisoner Demographics
+const getPrisonersInfo = async (req, res) => {
+  try {
+    // Counting prisoners by age group 
+    const demographics = await Prisoner.aggregate([
+      {
+        $project: {
+          ageGroup: {
+            $cond: [
+              { $lt: ["$age", 25] },
+              "Under 25",
+              { $cond: [{ $lt: ["$age", 45] }, "25-44", "45+"] },
+            ],
+          },
+        },
+      },
+      {
+        $group: {
+          _id: "$ageGroup",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+    res.json(demographics);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getIncidentFrequency,
+  getPrisonersInfo,
 };
