@@ -2,7 +2,7 @@ const Transfer = require("../models/Transfer");
 const Prisoner = require("../models/Prisoner");
 
 //Transfering Prisoner
-export const createTransfer = async (req, res) => {
+const createTransfer = async (req, res) => {
   const { prisonerId, fromFacility, toFacility, transferDate} = req.body;
 
   try {
@@ -26,7 +26,7 @@ export const createTransfer = async (req, res) => {
 };
 
 // View transfer history of a prisoner
-export const getTransferHistory = async (req, res) => {
+const getTransferHistory = async (req, res) => {
   const { prisonerId } = req.params;
 
   try {
@@ -41,6 +41,10 @@ export const getTransferHistory = async (req, res) => {
         .sort({ transferDate: -1 });
     }
 
+    if (transfers.length === 0) {
+      return res.status(200).json({ transfers: null }); // Return null if no transfers found
+    }
+
     res.status(200).json({ transfers });
   } catch (error) {
     res.status(500).json({ message: "Error fetching transfer history", error });
@@ -48,7 +52,7 @@ export const getTransferHistory = async (req, res) => {
 };
 
 // Approving transfer of prisoner
-export const approveTransfer = async (req, res) => {
+const approveTransfer = async (req, res) => {
   const { transferId } = req.params;
 
   try {
@@ -65,4 +69,10 @@ export const approveTransfer = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Error approving transfer", error });
   }
+};
+
+module.exports = {
+  createTransfer,
+  getTransferHistory,
+  approveTransfer
 };
