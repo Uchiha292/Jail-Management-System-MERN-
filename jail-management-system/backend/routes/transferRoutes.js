@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post("/transfer", createTransfer);
 
-router.get("/transfers/:prisonerId?", getTransferHistory);
+router.get("/:prisonerId?", getTransferHistory);
 
 router.put("/approve-transfer/:transferId", approveTransfer);
 
