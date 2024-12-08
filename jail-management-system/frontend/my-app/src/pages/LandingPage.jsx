@@ -16,7 +16,7 @@ const LandingPage = () => {
             {/* Main Content */}
             <main className="landing-content">
                 <div className="logo-container">
-                    <img src="/assets/logo.jpeg" alt="Website Logo" className="logo" />
+                    <img src="src/assets/logo.jpeg" alt="Website Logo" className="logo" />
                 </div>
                 <h1 className="welcome-message">Welcome to the Jail Management System</h1>
             </main>
