@@ -11,6 +11,7 @@ const visitationRequestRoutes = require("./routes/visitationRequestRoutes");  //
 const guidelineRoutes = require("./routes/guidelineRoutes");  // Import guideline routes
 const User = require("./models/User"); // Import the User model
 const prisonerRoutes = require("./routes/prisonerRoutes");
+const transferRoutes = require("./routes/transferRoutes");
 
 dotenv.config(); // Load environment variables
 connectDB(); // Connect to the database
@@ -103,6 +104,7 @@ app.use("/api/visitors", visitorRoutes);  // Existing visitor routes
 app.use("/api/visitation-request", visitationRequestRoutes);  // New route for visitation requests
 app.use("/api/guidelines", guidelineRoutes);  // New route for guidelines
 app.use("/api/prisoners", prisonerRoutes);
+app.use("/api/transfer", transferRoutes);
 
 // Serve Privacy Policy Page
 app.get("/privacy-policy", (req, res) => {
