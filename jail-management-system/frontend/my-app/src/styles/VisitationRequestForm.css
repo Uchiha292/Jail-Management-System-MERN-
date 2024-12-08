@@ -1,0 +1,102 @@
+/* Wrapper for the entire form */
+.visitation-request-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    padding: 20px;
+  }
+  
+  /* Container styling */
+  .visitation-request-container {
+    width: 100%;
+    max-width: 500px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  
+  /* Back button styling */
+  .back-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+  
+  .back-link {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 0.9rem;
+  }
+  
+  .back-link:hover {
+    color: #0056b3;
+  }
+  
+  /* Title styling */
+  .visitation-title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Form labels */
+  .form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  /* Input fields */
+  .form-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+  }
+  
+  /* Button container */
+  .form-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  /* Submit button */
+  .form-submit-btn {
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .form-submit-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Success and error messages */
+  .success-message {
+    color: green;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+  }
+  

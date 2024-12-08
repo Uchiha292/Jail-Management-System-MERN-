@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import BackButton from '../components/BackButton';
+import '../styles/VisitationRequest.css';
 
 function VisitationRequest() {
     const [prisonerId, setPrisonerId] = useState('');
@@ -23,76 +24,97 @@ function VisitationRequest() {
 
         fetchPrisoners();
     }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
-        // Check if the visitor is logged in
+
         if (!visitorData) {
             setMessage({ text: 'You must be logged in to make a visitation request.', type: 'error' });
             return;
         }
-    
-        // Log the visitorData to ensure it contains the email property
-        console.log('Visitor Data:', visitorData);  // Make sure this contains `email`
-    
+
         const postData = {
-            visitorEmail: visitorData.email,  // Ensure visitorData contains email
+            visitorEmail: visitorData.email,
             prisonerId,
-            visitDate
+            visitDate,
         };
-    
-        console.log('Data being posted:', postData);  // Log postData to ensure it's correct
-   
+
         try {
-            // Send the visitation request to the backend
             const response = await axios.post('http://localhost:5000/api/visitation-request/request', postData);
-    
+
             if (response.status === 201) {
                 setMessage({ text: 'Visitation request submitted successfully!', type: 'success' });
+                setPrisonerId('');
+                setVisitDate('');
             } else {
                 setMessage({ text: 'Error: ' + response.data.message, type: 'error' });
             }
         } catch (error) {
-            console.log('Error Response:', error.response?.data);  // Log error response
             setMessage({ text: 'Error: ' + error.message, type: 'error' });
         }
     };
-   
-    
-    
+
     return (
-        <div className="visitation-request">
+        <div className="visitation-request-container">
             <BackButton />
-            <h2>Visitation Request</h2>
+            <h2 className="visitation-title">Request a Visitation</h2>
             <form onSubmit={handleSubmit} className="form">
-                <label>
-                    Visitor:
-                    <input type="text" value={visitorData?.name} readOnly />
-                </label>
-                <label>
-                    Prisoner:
-                    <select value={prisonerId} onChange={(e) => setPrisonerId(e.target.value)} required>
-                        <option value="">Select Prisoner</option>
+                <div className="form-group">
+                    <label htmlFor="visitorName" className="form-label">
+                        Visitor
+                    </label>
+                    <input
+                        type="text"
+                        id="visitorName"
+                        value={visitorData?.name || 'Guest'}
+                        readOnly
+                        className="form-input form-input-readonly"
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="prisonerId" className="form-label">
+                        Prisoner
+                    </label>
+                    <select
+                        id="prisonerId"
+                        value={prisonerId}
+                        onChange={(e) => setPrisonerId(e.target.value)}
+                        className="form-input"
+                        required
+                    >
+                        <option value="" disabled>
+                            Select Prisoner
+                        </option>
                         {prisoners.map((prisoner) => (
                             <option key={prisoner._id} value={prisoner._id}>
                                 {prisoner.name}
                             </option>
                         ))}
                     </select>
-                </label>
-                <label>
-                    Visit Date:
+                </div>
+                <div className="form-group">
+                    <label htmlFor="visitDate" className="form-label">
+                        Visit Date
+                    </label>
                     <input
                         type="date"
+                        id="visitDate"
                         value={visitDate}
                         onChange={(e) => setVisitDate(e.target.value)}
+                        className="form-input"
                         required
                     />
-                </label>
-                <button type="submit">Submit Request</button>
+                </div>
+                <button type="submit" className="form-submit-btn">
+                    Submit Request
+                </button>
             </form>
             {message && (
-                <p className={message.type === 'success' ? 'success-message' : 'error-message'}>
+                <p
+                    className={`message ${
+                        message.type === 'success' ? 'success-message' : 'error-message'
+                    }`}
+                >
                     {message.text}
                 </p>
             )}
