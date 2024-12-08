@@ -8,8 +8,8 @@ const {
 
 const router = express.Router();
 
-router.post("/transfer", createTransfer);
-router.get("/:prisonerId?", getTransferHistory);
+router.post("/", createTransfer);
+router.get("/history/:prisonerId?", getTransferHistory);
 router.put("/approve-transfer/:transferId", approveTransfer);
 
 module.exports = router;
