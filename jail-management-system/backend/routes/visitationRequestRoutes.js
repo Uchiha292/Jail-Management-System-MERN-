@@ -146,17 +146,18 @@ router.delete("/requests/:id", async (req, res) => {
       .json({ message: "An error occurred.", error: error.message });
   }
 });// GET request to fetch visitation history by visitor CNIC
-router.get("/history/:visitorCnic", async (req, res) => {
-  const { visitorCnic } = req.params;
+// GET request to fetch visitation history by visitor email
+router.get("/history/:visitorEmail", async (req, res) => {
+  const { visitorEmail } = req.params;
 
-  // Validate the visitor CNIC format (you can add custom CNIC validation logic if needed)
-  if (!visitorCnic) {
-    return res.status(400).json({ message: "Visitor CNIC is required." });
+  // Validate the visitor email format (you can add custom validation logic if needed)
+  if (!visitorEmail) {
+    return res.status(400).json({ message: "Visitor email is required." });
   }
 
   try {
-    // Search for the visitor by their CNIC
-    const visitor = await Visitor.findOne({ cnic: visitorCnic }); // Assuming the collection is named 'Visitor'
+    // Search for the visitor by their email
+    const visitor = await Visitor.findOne({ email: visitorEmail }); // Assuming the collection is named 'Visitor'
 
     // Check if the visitor exists
     if (!visitor) {

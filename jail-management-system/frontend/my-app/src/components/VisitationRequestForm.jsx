@@ -1,6 +1,7 @@
-// VisitationRequestForm.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'; // Added for navigation if needed
+import '../styles/VisitationRequestForm.css';
 
 const VisitationRequestForm = () => {
   const [formData, setFormData] = useState({
@@ -20,56 +21,82 @@ const VisitationRequestForm = () => {
     e.preventDefault();
 
     if (!formData.visitorId || !formData.prisonerId || !formData.visitDate) {
-      setErrorMessage('Please fill in all fields.');
+      setErrorMessage('All fields are required.');
       return;
     }
 
     try {
       const response = await axios.post('http://localhost:5000/api/visitation-request/request', formData);
-      setSuccessMessage(response.data.message);
-      setErrorMessage('');
 
+      setSuccessMessage(response.data.message || 'Visitation request submitted successfully.');
+      setErrorMessage('');
       setFormData({
         visitorId: '',
         prisonerId: '',
         visitDate: '',
       });
     } catch (error) {
-      setErrorMessage(error.response ? error.response.data.message : 'An error occurred.');
+      setErrorMessage(error.response?.data?.message || 'An error occurred while submitting the request.');
       setSuccessMessage('');
     }
   };
 
   return (
-    <div className="visitation-request-form">
-      <h2>Request Visitation</h2>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-      {successMessage && <p className="success-message">{successMessage}</p>}
+    <div className="visitation-request-wrapper">
+      <div className="visitation-request-container">
+        {/* Back button */}
+        <div className="back-button">
+          <Link to="/" className="back-link">← Back</Link>
+        </div>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="visitorId"
-          placeholder="Visitor ID"
-          value={formData.visitorId}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="prisonerId"
-          placeholder="Prisoner ID"
-          value={formData.prisonerId}
-          onChange={handleChange}
-        />
-        <input
-          type="date"
-          name="visitDate"
-          placeholder="Visit Date"
-          value={formData.visitDate}
-          onChange={handleChange}
-        />
-        <button type="submit">Submit Request</button>
-      </form>
+        {/* Title */}
+        <h2 className="visitation-title">Request a Visitation</h2>
+
+        {/* Success and Error Messages */}
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {successMessage && <p className="success-message">{successMessage}</p>}
+
+        {/* Form */}
+        <form className="visitation-form" onSubmit={handleSubmit}>
+          <div className="form-fields">
+            <label htmlFor="visitorId" className="form-label">Visitor ID</label>
+            <input
+              type="text"
+              id="visitorId"
+              name="visitorId"
+              placeholder="Enter Visitor ID"
+              value={formData.visitorId}
+              onChange={handleChange}
+              className="form-input"
+            />
+
+            <label htmlFor="prisonerId" className="form-label">Prisoner ID</label>
+            <input
+              type="text"
+              id="prisonerId"
+              name="prisonerId"
+              placeholder="Enter Prisoner ID"
+              value={formData.prisonerId}
+              onChange={handleChange}
+              className="form-input"
+            />
+
+            <label htmlFor="visitDate" className="form-label">Visit Date</label>
+            <input
+              type="date"
+              id="visitDate"
+              name="visitDate"
+              value={formData.visitDate}
+              onChange={handleChange}
+              className="form-input"
+            />
+          </div>
+
+          <div className="form-actions">
+            <button type="submit" className="form-submit-btn">Submit Request</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
