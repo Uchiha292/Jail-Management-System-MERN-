@@ -14,6 +14,7 @@ const prisonerRoutes = require("./routes/prisonerRoutes");
 const transferRoutes = require("./routes/transferRoutes");
 const jailerRoutes = require("./routes/jailerRoutes");
 const wardenReportRoutes = require("./routes/wardenReportRoutes");
+const wardenRoutes = require('./routes/wardenRoutes');
 
 dotenv.config(); // Load environment variables
 connectDB(); // Connect to the database
@@ -113,6 +114,8 @@ app.use("/api/prisoners", prisonerRoutes);
 app.use("/api/transfer", transferRoutes);
 app.use("/api/jailer", jailerRoutes);
 app.use("/api/warden-report", wardenReportRoutes);
+app.use("/api/warden", wardenRoutes);
+
 
 // Serve Privacy Policy Page
 app.get("/privacy-policy", (req, res) => {
