@@ -12,6 +12,7 @@ const guidelineRoutes = require("./routes/guidelineRoutes"); // Import guideline
 const User = require("./models/User"); // Import the User model
 const prisonerRoutes = require("./routes/prisonerRoutes");
 const transferRoutes = require("./routes/transferRoutes");
+const jailerRoutes = require("./routes/jailerRoutes");
 
 dotenv.config(); // Load environment variables
 connectDB(); // Connect to the database
@@ -109,6 +110,7 @@ app.use("/api/visitation-request", visitationRequestRoutes); // New route for vi
 app.use("/api/guidelines", guidelineRoutes); // New route for guidelines
 app.use("/api/prisoners", prisonerRoutes);
 app.use("/api/transfer", transferRoutes);
+app.use("/api/jailer", jailerRoutes);
 
 // Serve Privacy Policy Page
 app.get("/privacy-policy", (req, res) => {
