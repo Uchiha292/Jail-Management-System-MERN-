@@ -40,18 +40,59 @@ const updateJailer = async (req, res) => {
 
 // Deactivate jailer
 const deactivateJailer = async (req, res) => {
-  const { id } = req.params;
+    const { id } = req.params;
 
-  try {
-    const updatedJailer = await Jailer.findByIdAndUpdate(id, { active: false }, { new: true });
-    if (!updatedJailer) {
-      return res.status(404).json({ message: "Jailer not found" });
+    try {
+        const jailer = await Jailer.findById(id);
+      
+        // Check if the jailer exists
+        if (!jailer) {
+            return res.status(404).json({ message: "Jailer not found" });
+        }
+
+        // Check if the jailer is already inactive
+        if (!jailer.isActive) {
+            return res.status(400).json({ message: "Jailer already inactive" });
+        }
+
+        // Updating jailer's status to inactive
+        jailer.isActive = false;
+        await jailer.save();
+
+        res.status(200).json({ message: "Jailer deactivated successfully", jailer });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error: error.message });
     }
-    res.status(200).json({ message: "Jailer deactivated successfully", jailer: updatedJailer });
-  } catch (error) {
-    res.status(500).json({ message: "Server error", error: error.message });
-  }
 };
+
+
+// Activate jailer
+const activateJailer = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const jailer = await Jailer.findById(id);
+      
+        // Check if the jailer exists
+        if (!jailer) {
+            return res.status(404).json({ message: "Jailer not found" });
+        }
+
+        // Check if the jailer is already active
+        if (jailer.isActive) {
+            return res.status(400).json({ message: "Jailer already active" });
+        }
+
+        // Updating jailer's staus to active
+        jailer.isActive = true;
+        await jailer.save();
+
+        res.status(200).json({ message: "Jailer activated successfully", jailer });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+};
+
 
 // Get all jailers
 const getAllJailers = async (req, res) => {
@@ -67,5 +108,6 @@ module.exports = {
   addJailer,
   updateJailer,
   deactivateJailer,
+  activateJailer,
   getAllJailers,
 };
