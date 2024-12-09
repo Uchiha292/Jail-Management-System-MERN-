@@ -8,7 +8,7 @@ const WardenHomePage = () => {
       <header className="warden-header">
         <h1>Warden Dashboard</h1>
         <nav className="warden-nav">
-          <Link to="#" className="nav-link">Manage Jailers</Link>
+          <Link to="/warden/manage-jailers" className="nav-link">Manage Jailers</Link>
           <Link to="/warden/manage-transfers" className="nav-link">Manage Transfers</Link>
           <Link to="/warden/manage-guidelines" className="nav-link">Manage Guidelines</Link>
           <Link to="/warden/reports" className="nav-link">Generate Reports</Link>
