@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import BackButton from '../components/BackButton';
+import BackButton from './BackButton';
 import { useNavigate } from 'react-router-dom';
 import '../styles/LoginVisitor.css';
 
-const LoginWarden = () => {
+const LoginJailer = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -13,9 +13,9 @@ const LoginWarden = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/warden/login', { email, password });
+      const response = await axios.post('http://localhost:5000/api/jailer/login', { email, password });
       localStorage.setItem('wardenToken', response.data.token);
-      navigate('/warden/home');
+      navigate('/jailer/home');
     } catch (error) {
       setErrorMessage('Invalid credentials');
     }
@@ -29,7 +29,7 @@ const LoginWarden = () => {
 
       <h1 className="main-title">Jail Management System</h1>
       <div className="login-box">
-        <h2 className="login-title" style={{ color: "black" }}>Warden Login</h2>
+        <h2 className="login-title" style={{ color: "black" }}>jailer Login</h2>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
         
         <form className="login-form" onSubmit={handleSubmit}>
@@ -57,4 +57,4 @@ const LoginWarden = () => {
 };
 
 
-export default LoginWarden;
+export default LoginJailer;

@@ -17,6 +17,10 @@ import IncidentFreqReport from './pages/IncidentFreqReport';
 import PrisonerDemoReports from './pages/PrisonerDemReports';
 import ManageGuidelines from './pages/ManageGuidlines';
 
+import LoginJailer from './components/LoginJailer';
+import JailerHomePage from './pages/JailerHomePage'; 
+import visitationHandel from './pages/visitationHandel'; 
+
 function App() {
     return (
         <Router>
@@ -40,6 +44,12 @@ function App() {
                 <Route path="/warden/report/incident-frequency" element={<IncidentFreqReport />} />
                 <Route path="/warden/report/prisoner-demographics" element={<PrisonerDemoReports />} />
                 <Route path="/warden/manage-guidelines" element={<ManageGuidelines />} />
+                
+                {/* Jailer Panel Routes */}
+                <Route path="/jailer/login" element={<LoginJailer />} />
+                <Route path="/jailer/home" element={<JailerHomePage />} />
+                <Route path="/visitation-handle" element={<visitationHandel />} />
+                
 
             </Routes>
         </Router>
@@ -47,3 +57,5 @@ function App() {
 }
 
 export default App;
+
+

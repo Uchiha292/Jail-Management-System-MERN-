@@ -24,11 +24,11 @@ const JailerHomePage = () => {
           <div className="card">
             <h2>Visitation Management</h2>
             <p>View and approve all the visitation requests</p>
-            <Link className="btn" to="/visitation-manager">Get Started</Link>
+            <Link className="btn" to="/visitation-handle">Get Started</Link>
           </div>
 
           <div className="card">
-            <h2>Incident Reaports</h2>
+            <h2>Incident Reports</h2>
             <p>Check up on all the issues in the prison</p>
             <Link className="btn" to="/incident-reports">View Reports</Link>
           </div>

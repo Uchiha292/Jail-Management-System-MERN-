@@ -1,5 +1,6 @@
 const express = require("express");
 const {
+  LoginJailer,
   addJailer,
   updateJailer,
   deactivateJailer,
@@ -9,6 +10,7 @@ const {
 
 const router = express.Router();
 
+router.post('/login', LoginJailer);
 router.post("/add", addJailer);
 router.put("/:id", updateJailer);
 router.patch("/:id/deactivate", deactivateJailer);
