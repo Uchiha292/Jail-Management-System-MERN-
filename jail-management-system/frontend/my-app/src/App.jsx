@@ -8,6 +8,8 @@ import VisitationHistory from './pages/VisitationHistory';
 import GuidelinesPage from './pages/Guidelines';
 import LoginWarden from './components/LoginWarden';
 import WardenHomePage from './pages/WardenHomePage';
+import ManageTransfers from './pages/ManageTransfers';
+import AllTransfers from './pages/AllTransfers';
 
 function App() {
     return (
@@ -24,6 +26,9 @@ function App() {
                 {/* Warden Panel Routes */}
                 <Route path="/warden/login" element={<LoginWarden />} />
                 <Route path="/warden/home" element={<WardenHomePage />} />
+                <Route path="/warden/manage-transfers" element={<ManageTransfers />} />
+                <Route path="/warden/manage-transfers/history" element={<AllTransfers />} />
+
             </Routes>
         </Router>
     );

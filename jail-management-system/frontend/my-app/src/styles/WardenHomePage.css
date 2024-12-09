@@ -4,38 +4,47 @@
   padding: 20px;
 }
 
-/* Header with the blue background */
+.back-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.back-button-wrapper {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
 .warden-header {
-  background-color: #007bff;  /* Blue header */
-  color: white;  /* Make sure the text is white */
+  background-color: #007bff;
+  color: white;
   padding: 10px;
   text-align: center;
 }
 
-/* Navigation menu with center-aligned links */
 .warden-nav {
   margin: 20px 0;
-  text-align: center; /* Center the links */
+  text-align: center;
 }
 
-/* Style for navigation links */
 .nav-link {
   color: white;
   margin: 0 15px;
   text-decoration: none;
   font-weight: bold;
-  font-size: 18px;  /* Increase font size */
+  font-size: 18px;
 }
 
 .nav-link:hover {
   text-decoration: underline;
-  color: #f1f1f1;  /* Lighter color on hover */
+  color: #f1f1f1;
 }
 
-/* Main content area with white background */
+
 .warden-content {
   padding: 20px;
-  background-color: white;  /* White background */
+  background-color: white;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }

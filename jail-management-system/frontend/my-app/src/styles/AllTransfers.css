@@ -1,0 +1,35 @@
+.transfer-history-container {
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  margin: 20px auto;
+  color: #333;
+}
+
+.transfer-history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.transfer-history-table th,
+.transfer-history-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.transfer-history-table th {
+  background-color: #f1f1f1;
+  font-weight: bold;
+}
+
+.transfer-history-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+body {
+  background-color: white;
+}

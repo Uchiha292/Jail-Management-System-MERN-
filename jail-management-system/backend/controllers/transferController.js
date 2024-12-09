@@ -51,6 +51,24 @@ const getTransferHistory = async (req, res) => {
   }
 };
 
+// Get Transfer History of every prisoner
+const getTransfers = async (req, res) => {
+  try {
+    const transfers = await Transfer.find()
+      .populate("prisoner", "name age crime")
+      .sort({ transferDate: -1 });
+
+    if (transfers.length === 0) {
+      return res.status(200).json({ transfers: null });
+    }
+
+    res.status(200).json({ transfers });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching transfer history", error });
+  }
+};
+
+
 // Approving transfer of prisoner
 const approveTransfer = async (req, res) => {
   const { transferId } = req.params;
@@ -74,5 +92,6 @@ const approveTransfer = async (req, res) => {
 module.exports = {
   createTransfer,
   getTransferHistory,
+  getTransfers,
   approveTransfer
 };
