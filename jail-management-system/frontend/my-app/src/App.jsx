@@ -10,6 +10,8 @@ import LoginWarden from './components/LoginWarden';
 import WardenHomePage from './pages/WardenHomePage';
 import ManageTransfers from './pages/ManageTransfers';
 import AllTransfers from './pages/AllTransfers';
+import PrisonerTransfers from './pages/PrisonerTransfers';
+
 
 function App() {
     return (
@@ -28,6 +30,7 @@ function App() {
                 <Route path="/warden/home" element={<WardenHomePage />} />
                 <Route path="/warden/manage-transfers" element={<ManageTransfers />} />
                 <Route path="/warden/manage-transfers/history" element={<AllTransfers />} />
+                <Route path="/warden/manage-transfers/history/:id" element={<PrisonerTransfers />} />
 
             </Routes>
         </Router>
