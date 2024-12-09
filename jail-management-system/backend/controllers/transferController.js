@@ -89,9 +89,26 @@ const approveTransfer = async (req, res) => {
   }
 };
 
+const getUnapprovedTransfers = async (req, res) => {
+  try {
+    const transfers = await Transfer.find({ approved: false })
+      .populate("prisoner", "name age crime")
+      .sort({ transferDate: -1 });
+
+    if (transfers.length === 0) {
+      return res.status(200).json({ transfers: null });
+    }
+
+    res.status(200).json({ transfers });
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching unapproved transfers", error });
+  }
+};
+
 module.exports = {
   createTransfer,
   getTransferHistory,
   getTransfers,
-  approveTransfer
+  approveTransfer,
+  getUnapprovedTransfers
 };

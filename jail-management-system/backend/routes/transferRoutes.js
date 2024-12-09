@@ -3,7 +3,8 @@ const {
     createTransfer, 
     getTransferHistory, 
     getTransfers,
-    approveTransfer
+    approveTransfer,
+    getUnapprovedTransfers
 } = require("../controllers/transferController");
 //const authorizeWarden = require("../middlewares/authMiddleware");
 
@@ -12,6 +13,7 @@ const router = express.Router();
 router.post("/", createTransfer);
 router.get("/history/:prisonerId?", getTransferHistory);
 router.get("/history/", getTransfers);
-router.put("/approve-transfer/:transferId", approveTransfer);
+router.put("/unapproved-transfers/approve/:transferId", approveTransfer);
+router.get("/unapproved-transfers/", getUnapprovedTransfers);
 
 module.exports = router;
