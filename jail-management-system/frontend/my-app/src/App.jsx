@@ -20,7 +20,7 @@ import ManageGuidelines from './pages/ManageGuidlines';
 import LoginJailer from './components/LoginJailer';
 import JailerHomePage from './pages/JailerHomePage'; 
 import visitationHandel from './pages/visitationHandel'; 
-
+import IncidentCheck from './pages/IncidentCheck'; 
 function App() {
     return (
         <Router>
@@ -49,8 +49,7 @@ function App() {
                 <Route path="/jailer/login" element={<LoginJailer />} />
                 <Route path="/jailer/home" element={<JailerHomePage />} />
                 <Route path="/visitation-handle" element={<visitationHandel />} />
-                
-
+                <Route path="/visitation-handle" element={<visitationHandel />} />
             </Routes>
         </Router>
     );
