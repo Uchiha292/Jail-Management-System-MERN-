@@ -11,7 +11,8 @@ import WardenHomePage from './pages/WardenHomePage';
 import ManageTransfers from './pages/ManageTransfers';
 import AllTransfers from './pages/AllTransfers';
 import PrisonerTransfers from './pages/PrisonerTransfers';
-
+import PendingTransfers from './pages/PendingTransfers';
+import GenerateReports from './pages/GenerateReports';
 
 function App() {
     return (
@@ -31,6 +32,8 @@ function App() {
                 <Route path="/warden/manage-transfers" element={<ManageTransfers />} />
                 <Route path="/warden/manage-transfers/history" element={<AllTransfers />} />
                 <Route path="/warden/manage-transfers/history/:id" element={<PrisonerTransfers />} />
+                <Route path="/warden/manage-transfers/pending" element={<PendingTransfers />} />
+                <Route path="/warden/reports" element={<GenerateReports />} />
 
             </Routes>
         </Router>

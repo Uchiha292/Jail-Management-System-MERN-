@@ -1,0 +1,40 @@
+.generate-reports-container {
+    padding: 20px;
+    background-color: #007bff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .back-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+
+  .back-button-wrapper {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
+  
+  .report-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .report-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: white;
+    color: #007bff;
+    font-weight: bold;
+    font-size: 18px;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .report-button:hover {
+    background-color: #0056b3;
+  }
