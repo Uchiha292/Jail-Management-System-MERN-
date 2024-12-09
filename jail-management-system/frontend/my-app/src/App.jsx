@@ -16,6 +16,8 @@ import GenerateReports from './pages/GenerateReports';
 import IncidentFreqReport from './pages/IncidentFreqReport';
 import PrisonerDemoReports from './pages/PrisonerDemReports';
 import ManageGuidelines from './pages/ManageGuidlines';
+import ManageJailers from './pages/ManageJailers';
+
 
 function App() {
     return (
@@ -40,6 +42,7 @@ function App() {
                 <Route path="/warden/report/incident-frequency" element={<IncidentFreqReport />} />
                 <Route path="/warden/report/prisoner-demographics" element={<PrisonerDemoReports />} />
                 <Route path="/warden/manage-guidelines" element={<ManageGuidelines />} />
+                <Route path="/warden/manage-jailers" element={<ManageJailers />} />
 
             </Routes>
         </Router>
