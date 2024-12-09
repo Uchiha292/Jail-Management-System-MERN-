@@ -11,8 +11,8 @@ const GenerateReports = () => {
       </div>
       <h1>Generate Reports</h1>
       <div className="report-buttons">
-        <Link to="#" className="report-button">Incident Frequency Report</Link>
-        <Link to="#" className="report-button">Prisoner Demographics</Link>
+        <Link to="/warden/report/incident-frequency" className="report-button">Incident Frequency Report</Link>
+        <Link to="/warden/report/prisoner-demographics" className="report-button">Prisoner Demographics</Link>
       </div>
     </div>
   );

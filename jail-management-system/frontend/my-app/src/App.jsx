@@ -13,6 +13,8 @@ import AllTransfers from './pages/AllTransfers';
 import PrisonerTransfers from './pages/PrisonerTransfers';
 import PendingTransfers from './pages/PendingTransfers';
 import GenerateReports from './pages/GenerateReports';
+import IncidentFreqReport from './pages/IncidentFreqReport';
+import PrisonerDemoReports from './pages/PrisonerDemReports';
 
 function App() {
     return (
@@ -34,6 +36,9 @@ function App() {
                 <Route path="/warden/manage-transfers/history/:id" element={<PrisonerTransfers />} />
                 <Route path="/warden/manage-transfers/pending" element={<PendingTransfers />} />
                 <Route path="/warden/reports" element={<GenerateReports />} />
+                <Route path="/warden/report/incident-frequency" element={<IncidentFreqReport />} />
+                <Route path="/warden/report/prisoner-demographics" element={<PrisonerDemoReports />} />
+
 
             </Routes>
         </Router>

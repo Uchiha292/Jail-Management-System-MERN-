@@ -6,7 +6,7 @@ const getIncidentFrequency = async (req, res) => {
   try {
     const prisonerIncidents = await Incident.aggregate([
       { $group: { _id: "$prisoner", count: { $sum: 1 } } },
-      { $lookup: { from: "Prisoner", localField: "_id", foreignField: "_id", as: "prisonerDetails" } },
+      { $lookup: { from: "prisoners", localField: "_id", foreignField: "_id", as: "prisonerDetails" } },
       { $unwind: "$prisonerDetails" },
       {
         $project: {
@@ -16,16 +16,17 @@ const getIncidentFrequency = async (req, res) => {
       },
     ]);
 
-    // If no incidents
+    // If no incidents, return an empty array
     if (prisonerIncidents.length === 0) {
-      return res.json({ message: "No incidents" });
+      return res.json({ data: [] });
     }
 
-    res.json(prisonerIncidents);
+    res.json({ data: prisonerIncidents });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Get Prisoner Demographics
 const getPrisonersInfo = async (req, res) => {
