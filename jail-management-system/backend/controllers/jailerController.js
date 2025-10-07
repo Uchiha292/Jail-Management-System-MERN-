@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const Jailer = require("../models/Jailer");
 
 
@@ -44,7 +46,6 @@ const LoginJailer = async (req, res) => {
   }
 };
 
-// Add new jailer
 const addJailer = async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -58,13 +59,18 @@ const addJailer = async (req, res) => {
       return res.status(400).json({ message: "Email already registered" });
     }
 
-    const newJailer = new Jailer({ name, email, password });
+    // Hash the password before saving
+    const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
+
+    const newJailer = new Jailer({ name, email, password: hashedPassword }); // Use hashed password
     await newJailer.save();
     res.status(201).json({ message: "Jailer added successfully", jailer: newJailer });
   } catch (error) {
+    console.error("Error adding jailer:", error); // Log the actual error for debugging
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
 
 // Updating jailer
 const updateJailer = async (req, res) => {
@@ -88,7 +94,7 @@ const deactivateJailer = async (req, res) => {
 
     try {
         const jailer = await Jailer.findById(id);
-      
+
         // Check if the jailer exists
         if (!jailer) {
             return res.status(404).json({ message: "Jailer not found" });
@@ -116,7 +122,7 @@ const activateJailer = async (req, res) => {
 
     try {
         const jailer = await Jailer.findById(id);
-      
+
         // Check if the jailer exists
         if (!jailer) {
             return res.status(404).json({ message: "Jailer not found" });

@@ -1,0 +1,112 @@
+/* styles/RoleSelection.css */
+.role-selection-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5; /* Light grey background */
+  padding: 20px; /* Add padding to prevent touching edges on small screens */
+}
+
+.role-selection-container {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 500px; /* Limit max width */
+}
+
+.role-selection-container h1 {
+  margin-bottom: 30px;
+  color: #333;
+  font-size: 2rem; /* Larger font size */
+}
+
+.role-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between buttons */
+}
+
+.role-btn {
+  display: block;
+  padding: 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: transform 0.2s, box-shadow 0.2s; /* Smooth hover effect */
+  border: 2px solid transparent; /* Add border for consistent look */
+}
+
+.role-btn:hover {
+  transform: translateY(-2px); /* Slight lift on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Deeper shadow on hover */
+}
+
+.role-btn:active {
+  transform: translateY(0); /* Reset lift when clicked */
+}
+
+.visitor-btn {
+  background-color: #28a745; /* Green */
+  border-color: #218838; /* Darker green border */
+}
+
+.visitor-btn:hover {
+  background-color: #218838; /* Darker green on hover */
+  color: white;
+  transform: scale(1.1);
+
+}
+
+.warden-btn {
+  background-color: #007bff; /* Blue */
+  border-color: #0069d9; /* Darker blue border */
+}
+
+.warden-btn:hover {
+  background-color: #0069d9; /* Darker blue on hover */
+  color: white;
+  transform: scale(1.1);
+}
+
+.jailer-btn {
+  background-color: #ffc107; /* Yellow/Orange */
+  color: white; /* Dark text for contrast */
+  border-color: #e0a800; /* Darker yellow border */
+}
+
+.jailer-btn:hover {
+  background-color: #e0a800; /* Darker yellow on hover */
+  color: white;
+  transform: scale(1.1);
+}
+
+.role-btn h2 {
+  margin: 0 0 10px 0;
+  font-size: 1.5rem;
+}
+
+.role-btn p {
+  margin: 0;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.back-link {
+  margin-top: 20px;
+}
+
+.back-link a {
+  color: #007bff; /* Link color */
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.back-link a:hover {
+  text-decoration: underline;
+
+}

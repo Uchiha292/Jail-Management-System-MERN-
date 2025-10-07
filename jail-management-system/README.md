@@ -1,94 +1,96 @@
-Installations:
-1. React
-2. Node.js
-3. Express.js
-4. Mongoose
-5. dotenv
-6. bcrypt
-7. jsonwebtoken
-8. cors
-9. body-parser
-10. react-router-dom
-11. axios
-12. redux
+# Jail Management System
 
-# Install Backend Dependencies:
-    cd jail-management-system
-    cd backend
+A comprehensive web application built using the MERN stack (MongoDB, Express.js, React, Node.js) to manage jail operations efficiently. This system streamlines processes like inmate tracking, visitation requests, incident reporting, and role-based access control.
+
+## Table of Contents
+
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Installation](#installation)
+- [Backend Setup](#backend-setup)
+- [Frontend Setup](#frontend-setup)
+- [Environment Variables](#environment-variables)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Contributors](#contributors)
+- [Work Division](#work-division)
+- [GitHub Repository](#github-repository)
+- [Create React App Info](#create-react-app-info)
+
+## Features
+
+- **Role-Based Access Control:**
+  - **Visitor:** Register, request visits, view visitation history, access guidelines.
+  - **Jailer (Admin):** Manage inmates, handle visitation requests, report incidents, manage cells.
+  - **Warden (Super Admin):** Manage users (Jailers), oversee transfers, manage policies, generate reports, audit logs.
+- **Centralized Database:** Secure storage and management of inmate, visitor, and staff information.
+- **Visitation Management:** Streamlined process for visitors to request visits and for staff to approve/deny them.
+- **Incident Reporting:** Tools for Jailers to document and track incidents.
+- **Cell Management:** Assign and reassign inmates to cells.
+- **Transfer Management:** Oversee and approve inmate transfers (Warden).
+- **Reporting:** Generate various reports for analytics and planning (Warden).
+
+## Tech Stack
+
+- **Frontend:** React, React Router, Axios, Redux, Create React App
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB (Atlas)
+- **Authentication:** JSON Web Tokens (JWT), Google OAuth (for visitors)
+- **Styling:** CSS (Vanilla)
+- **Other:** Bcrypt (for password hashing), Dotenv (for environment variables), Cors (for cross-origin requests)
+
+## Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/Uchiha292/Jail-Management-System-Web-Project.git
+    cd Jail-Management-System-Web-Project
+    ```
+
+2.  Navigate to the project root directory.
+
+## Backend Setup
+
+1.  Navigate to the `backend` directory:
+    ```bash
+    cd jail-management-system/backend
+    ```
+2.  Install backend dependencies:
+    ```bash
     npm install
+    ```
+3.  Create a `.env` file in the `backend` directory and add the environment variables as described below.
+4.  Start the backend server:
+    ```bash
+    npm run dev  # Or 'npm start' depending on your package.json scripts
+    ```
+    The backend server should now be running on `http://localhost:5000`.
 
-# Install Frontend Dependencies:
-    cd jail-management-system
-    cd frontend/my-app
+## Frontend Setup
+
+1.  Navigate to the `frontend/my-app` directory:
+    ```bash
+    cd jail-management-system/frontend/my-app
+    ```
+2.  Install frontend dependencies:
+    ```bash
     npm install
+    ```
+3.  Start the frontend development server:
+    ```bash
+    npm run dev
+    ```
+    The frontend should now be running on `http://localhost:5173`.
 
-# Getting Started with Create React App
+## Environment Variables
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Create a `.env` file in the `backend` directory (`jail-management-system/backend/.env`) with the following variables:
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open (http://localhost:5713) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```env
+PORT=5000
+MONGO_URI=mongodb+srv://SanaanAzfar:742004@cluster0.9eol5.mongodb.net/
+GOOGLE_CLIENT_ID=396729223726-co6nsgbplchnjg8efjf2cam969b4lq2k.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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
+GOOGLE_CALLBACK_URL=http://localhost:5173/auth/google/callback
+JWT_SECRET=3d84e87eab9c9e8fdf85df34c23ba9232f57e92eabae623df82e9bcfe83e92d7
+SESSION_SECRET=your_session_secret_key_here # Add this for express-session if not already set

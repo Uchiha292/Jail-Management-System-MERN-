@@ -1,0 +1,49 @@
+/* src/styles/VisitationHandle.css */
+.visitation-handle {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.visitation-handle h1 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.btn {
+  padding: 8px 16px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.visitation-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.visitation-table th,
+.visitation-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.visitation-table th {
+  background-color: #f2f2f2;
+}
